@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +8,18 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class AppComponent {
   title = 'app works!';
+  auth: FirebaseAuthState;
   items: FirebaseListObservable<any[]>;
 
   constructor(private angularFire: AngularFire) {
     this.items = angularFire.database.list('items');
+    this.angularFire.auth.subscribe((auth) => {
+      this.auth = auth;
+    });
+  }
+
+  isAuth(): boolean {
+    return !!(this.auth && this.auth.uid);
   }
 
   login() {

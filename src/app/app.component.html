@@ -4,7 +4,7 @@
 
 <hr>
 
-<ul>
+<ul *ngIf="isAuth()">
   <li class="text" *ngFor="let item of items | async">
     {{item.$value}}
   </li>
@@ -13,6 +13,9 @@
 <hr>
 
 <div> {{ (angularFire.auth | async)?.uid }} </div>
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
+<button (click)="login()" *ngIf="!isAuth()">Login</button>
+<button (click)="logout()" *ngIf="isAuth()">Logout</button>
+
+<hr>
+
 <div> <pre>{{ angularFire.auth | async | json }}</pre> </div>
