@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 
@@ -15,6 +15,11 @@ export const FIREBASE_CONFIG = {
   messagingSenderId: '382830496451'
 };
 
+export const FIREBASE_AUTH_CONFIX = {
+  provider: AuthProviders.Google,
+  method: AuthMethods.Popup
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -24,7 +29,7 @@ export const FIREBASE_CONFIG = {
     FormsModule,
     HttpModule,
 
-    AngularFireModule.initializeApp(FIREBASE_CONFIG)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG, FIREBASE_AUTH_CONFIX)
   ],
   providers: [],
   bootstrap: [AppComponent]

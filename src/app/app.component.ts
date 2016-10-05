@@ -13,4 +13,12 @@ export class AppComponent {
   constructor(private angularFire: AngularFire) {
     this.items = angularFire.database.list('items');
   }
+
+  login() {
+    this.angularFire.auth.login();
+  }
+
+  logout() {
+    this.angularFire.auth.logout();
+  }
 }

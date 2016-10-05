@@ -2,8 +2,17 @@
   {{title}}
 </h1>
 
+<hr>
+
 <ul>
   <li class="text" *ngFor="let item of items | async">
     {{item.$value}}
   </li>
 </ul>
+
+<hr>
+
+<div> {{ (angularFire.auth | async)?.uid }} </div>
+<button (click)="login()">Login</button>
+<button (click)="logout()">Logout</button>
+<div> <pre>{{ angularFire.auth | async | json }}</pre> </div>
