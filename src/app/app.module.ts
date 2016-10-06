@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+import { AuthGuard } from './auth-guard.service';
+
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
@@ -46,7 +48,8 @@ export const FIREBASE_AUTH_CONFIX = {
     AngularFireModule.initializeApp(FIREBASE_CONFIG, FIREBASE_AUTH_CONFIX)
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

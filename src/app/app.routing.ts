@@ -1,6 +1,8 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuard } from './auth-guard.service';
+
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ItemsListComponent } from './items-list/items-list.component';
@@ -13,11 +15,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'items',
-    component: ItemsListComponent
+    component: ItemsListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'items/:id',
-    component: ItemDetailsComponent
+    component: ItemDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '**',
