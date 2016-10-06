@@ -1,13 +1,18 @@
+<div *ngIf="!isLoggedIn()">Access denied</div>
+
 <div *ngIf="isLoggedIn()">
-  <ul>
+  <div *ngIf="isLoading">Loading...</div>
+
+  <ul *ngIf="!isLoading">
     <li *ngFor="let item of items | async">
-      <input type="text" #updatetext [value]="item.text" />
-      <button (click)="updateItem(item.$key, updatetext.value)">Update</button>
+      <input type="text" #updateTitle [value]="item.title" />
+      <input type="text" #updateSum [value]="item.sum" />
+      <button (click)="updateItem(item.$key, updateTitle.value, updateSum.value)">Update</button>
       <button (click)="deleteItem(item.$key)">Delete</button>
     </li>
   </ul>
-  <input type="text" #newitem />
-  <button (click)="addItem(newitem.value)">Add</button>
-  <button (click)="deleteEverything()">Delete All</button>
+  <input type="text" #newitemTitle [disabled]="isLoading" />
+  <input type="text" #newitemSum [disabled]="isLoading" />
+  <button (click)="addItem(newitemTitle.value, newitemSum.value)" [disabled]="isLoading">Add</button>
+  <button (click)="deleteEverything()" [disabled]="isLoading">Delete All</button>
 </div>
-<div *ngIf="!isLoggedIn()">Access denied</div>

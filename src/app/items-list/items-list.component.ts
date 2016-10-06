@@ -9,21 +9,26 @@ import { AuthService } from '../shared/auth.service';
 })
 export class ItemsListComponent {
 
+  isLoading: boolean = true;
   items: FirebaseListObservable<any[]>;
 
   constructor(private angularFire: AngularFire, private authService: AuthService) {
     this.items = angularFire.database.list('/items');
+    this.items.subscribe((items) => {
+      console.log('on', items);
+      this.isLoading = false;
+    });
   }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
   }
 
-  addItem(newName: string) {
-    this.items.push({ text: newName });
+  addItem(title: string, sum: number) {
+    this.items.push({ title, sum });
   }
-  updateItem(key: string, newText: string) {
-    this.items.update(key, { text: newText });
+  updateItem(key: string, title: string, sum: number) {
+    this.items.update(key, { title, sum });
   }
   deleteItem(key: string) {
     this.items.remove(key);
