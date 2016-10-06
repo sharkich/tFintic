@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFire } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +6,4 @@ import { AngularFire } from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'tFintic works!';
-
-  constructor(private angularFire: AngularFire) {}
-
 }

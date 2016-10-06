@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-items-list',
@@ -10,8 +11,12 @@ export class ItemsListComponent {
 
   items: FirebaseListObservable<any[]>;
 
-  constructor(private angularFire: AngularFire) {
+  constructor(private angularFire: AngularFire, private authService: AuthService) {
     this.items = angularFire.database.list('/items');
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 
   addItem(newName: string) {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseAuthState } from 'angularfire2';
+import { AngularFire } from 'angularfire2';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,26 +9,18 @@ import { AngularFire, FirebaseAuthState } from 'angularfire2';
 })
 export class HeaderComponent {
 
-  auth: FirebaseAuthState;
+  constructor(private angularFire: AngularFire, private authService: AuthService) {}
 
-  constructor(private angularFire: AngularFire) {
-    this.angularFire.auth.subscribe((auth) => {
-      this.auth = auth;
-    });
-  }
-
-  // auth
-
-  isAuth(): boolean {
-    return !!(this.auth && this.auth.uid);
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 
   login() {
-    this.angularFire.auth.login();
+    this.authService.login();
   }
 
   logout() {
-    this.angularFire.auth.logout();
+    this.authService.logout();
   }
 
 }
