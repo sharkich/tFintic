@@ -1,10 +1,22 @@
+<app-header></app-header>
+
 <h1>
   {{title}}
 </h1>
 
 <hr>
 
-<ul *ngIf="isAuth()">
+<router-outlet></router-outlet>
+
+<hr>
+
+<div> {{ (angularFire.auth | async)?.uid }} </div>
+<button (click)="login()" *ngIf="!isAuth()">Login</button>
+<button (click)="logout()" *ngIf="isAuth()">Logout</button>
+
+<hr>
+
+<ul>
   <li *ngFor="let item of items | async">
     <input type="text" #updatetext [value]="item.text" />
     <button (click)="updateItem(item.$key, updatetext.value)">Update</button>
@@ -14,12 +26,6 @@
 <input type="text" #newitem />
 <button (click)="addItem(newitem.value)">Add</button>
 <button (click)="deleteEverything()">Delete All</button>
-
-<hr>
-
-<div> {{ (angularFire.auth | async)?.uid }} </div>
-<button (click)="login()" *ngIf="!isAuth()">Login</button>
-<button (click)="logout()" *ngIf="isAuth()">Logout</button>
 
 <hr>
 
