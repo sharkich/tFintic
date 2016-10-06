@@ -8,3 +8,9 @@
     <li><a routerLink="/items" routerLinkActive="active">Items</a></li>
   </ul>
 </nav>
+
+<div> {{ (angularFire.auth | async)?.uid }} </div>
+<button (click)="login()" *ngIf="!isAuth()">Login</button>
+<button (click)="logout()" *ngIf="isAuth()">Logout</button>
+
+<hr>
