@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../shared/auth.service';
 
@@ -12,7 +13,7 @@ export class ItemsListComponent {
   isLoading: boolean = true;
   items: FirebaseListObservable<any[]>;
 
-  constructor(private angularFire: AngularFire, private authService: AuthService) {
+  constructor(private angularFire: AngularFire, private authService: AuthService, private router: Router) {
     this.items = angularFire.database.list('/items');
     this.items.subscribe((items) => {
       console.log('on', items);
@@ -35,6 +36,10 @@ export class ItemsListComponent {
   }
   deleteEverything() {
     this.items.remove();
+  }
+
+  onClickItem(item) {
+    this.router.navigate(['/items', item.$key]);
   }
 
 }
