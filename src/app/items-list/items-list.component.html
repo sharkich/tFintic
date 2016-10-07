@@ -1,9 +1,8 @@
-<div *ngIf="!isLoggedIn()">Access denied</div>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!isLoading && !isLoggedIn()">Access denied</div>
 
-<div *ngIf="isLoggedIn()">
-  <div *ngIf="isLoading">Loading...</div>
-
-  <ul *ngIf="!isLoading">
+<div *ngIf="isLoggedIn() && !isLoading">
+  <ul>
     <li *ngFor="let item of items | async">
       <a (click)="onClickItem(item)">
         <span>{{item.title}}</span>

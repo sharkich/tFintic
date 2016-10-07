@@ -1,3 +1,9 @@
-<p>
-  item-details works!
-</p>
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!isLoading && !isLoggedIn()">Access denied</div>
+
+<div *ngIf="isLoggedIn() && !isLoading">
+  (
+  <span>{{item.title}}</span>
+  <span>{{item.sum}}</span>
+  )
+</div>

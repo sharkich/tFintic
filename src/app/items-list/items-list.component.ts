@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../shared/auth.service';
@@ -8,13 +8,18 @@ import { AuthService } from '../shared/auth.service';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css']
 })
-export class ItemsListComponent {
+export class ItemsListComponent implements OnInit{
 
   isLoading: boolean = true;
   items: FirebaseListObservable<any[]>;
 
-  constructor(private angularFire: AngularFire, private authService: AuthService, private router: Router) {
-    this.items = angularFire.database.list('/items');
+  constructor(private angularFire: AngularFire,
+              private authService: AuthService,
+              private router: Router) {
+  }
+
+  ngOnInit() {
+    this.items = this.angularFire.database.list('/items');
     this.items.subscribe((items) => {
       console.log('on', items);
       this.isLoading = false;
