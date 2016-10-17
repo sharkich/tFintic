@@ -11,14 +11,14 @@ import {Group} from '../shared/group';
 export class GroupsListComponent implements OnInit {
 
   isLoading: boolean = true;
-  groups: FirebaseListObservable<Group[]>;
+  groups$: FirebaseListObservable<Group[]>;
 
   constructor(private angularFire: AngularFire) {
   }
 
   ngOnInit() {
-    this.groups = this.angularFire.database.list('/groups');
-    this.groups.subscribe((groups: Group[]) => {
+    this.groups$ = this.angularFire.database.list('/groups');
+    this.groups$.subscribe((groups: Group[]) => {
       console.log('on', groups);
       this.isLoading = false;
     });

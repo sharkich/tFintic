@@ -57,7 +57,9 @@ export class GroupEditComponent implements OnInit {
         sum: this.item.sum});
     } else {
       console.log('update', this.item);
-      this.item$.update(this.item);
+      this.item$.update({
+        title: this.item.title,
+        sum: this.item.sum});
     }
     this.router.navigate(['/groups']);
   }

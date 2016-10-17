@@ -1,8 +1,16 @@
 <h1>Groups List</h1>
 
-<p>
-  groups-list works!
-</p>
+<div *ngIf="isLoading">Loading...</div>
+
+<div class="list-group" *ngIf="!isLoading">
+  <a
+    *ngFor="let group of groups$ | async"
+    class="list-group-item"
+    routerLink="/groups/{{group.$key}}">
+    <span class="badge">{{group.sum}}</span>
+    {{group.title}}
+  </a>
+</div>
 
 <p>
   <a class="btn btn-primary pull-right" routerLink="/groups/new">Create new</a>
