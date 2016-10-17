@@ -1,0 +1,35 @@
+<h1>Group {{isNew() ? 'New' : 'Edit'}}</h1>
+
+<form (submit)="save()">
+
+  <div class="form-group">
+    <label for="groupTitle">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="title"
+      required
+      id="groupTitle"
+      [(ngModel)]="item.title"
+      [ngModelOptions]="{standalone: true}"
+      [disabled]="isLoading">
+  </div>
+
+  <div class="form-group">
+    <label for="groupSum">Sum</label>
+    <input
+      type="number"
+      class="form-control"
+      id="groupSum"
+      placeholder="sum"
+      required
+      [(ngModel)]="item.sum"
+      [ngModelOptions]="{standalone: true}"
+      [disabled]="isLoading">
+  </div>
+
+  <a type="submit" class="btn btn-default" routerLink="/groups">Cancel</a>
+  <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
+  <div class="clearfix"></div>
+
+</form>

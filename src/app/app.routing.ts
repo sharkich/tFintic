@@ -8,6 +8,7 @@ import {HomeComponent} from './home/home.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {GroupsListComponent} from './groups-list/groups-list.component';
+import {GroupEditComponent} from './group-edit/group-edit.component';
 
 import {ItemsListComponent} from './items-list/items-list.component';
 import {ItemDetailsComponent} from './item-details/item-details.component';
@@ -25,6 +26,11 @@ const appRoutes: Routes = [
   {
     path: 'groups',
     component: GroupsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'groups/:id',
+    component: GroupEditComponent,
     canActivate: [AuthGuard],
   },
 

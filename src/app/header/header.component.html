@@ -5,12 +5,13 @@
     </h1>
   </div>
   <div class="col-xs-6">
-    <p class="right login">
+    <p class="pull-right login">
       <small>
         {{(angularFire.auth | async)?.auth.displayName }}
         <button (click)="login()" *ngIf="!isLoggedIn()" class="btn btn-primary">Login</button>
-        <button (click)="logout()" *ngIf="isLoggedIn()" class="btn btn-primary">Logout</button>
+        <button (click)="logout()" *ngIf="isLoggedIn()" class="btn">Logout</button>
       </small>
     </p>
+    <div class="clearfix"></div>
   </div>
 </div>
