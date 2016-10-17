@@ -1,20 +1,3 @@
-.active {
-  color: red;
-}
-
-.c {
-  clear: both;
-}
-
-.right {
-  float: right;
-}
-
-ul {
-  list-style: none;
-}
-
-li {
-  float: left;
-  margin-right: 1em;
+.login {
+  padding-top: 25px;
 }

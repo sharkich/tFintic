@@ -1,15 +1,16 @@
-<nav>
-  <ul>
-    <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-    <li><a routerLink="/items" routerLinkActive="active">Items</a></li>
-    <li>
-
-    </li>
-    <li class="right">
-      {{(angularFire.auth | async)?.auth.displayName }}
-      <button (click)="login()" *ngIf="!isLoggedIn()">Login</button>
-      <button (click)="logout()" *ngIf="isLoggedIn()">Logout</button>
-    </li>
-  </ul>
-  <div class="c"></div>
-</nav>
+<div class="row">
+  <div class="col-xs-6">
+    <h1>
+      <a routerLink="/">tFintic</a>
+    </h1>
+  </div>
+  <div class="col-xs-6">
+    <p class="right login">
+      <small>
+        {{(angularFire.auth | async)?.auth.displayName }}
+        <button (click)="login()" *ngIf="!isLoggedIn()" class="btn btn-primary">Login</button>
+        <button (click)="logout()" *ngIf="isLoggedIn()" class="btn btn-primary">Logout</button>
+      </small>
+    </p>
+  </div>
+</div>
