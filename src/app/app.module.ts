@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
+import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+
 import { AuthService } from './shared/auth.service';
 import { AuthGuard } from './shared/auth-guard.service';
 
@@ -16,7 +18,7 @@ import { HeaderComponent } from './header/header.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
 
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyAtcV7fnR7l9uyT3w4bPxn3TjW31ffGdk8',
@@ -48,7 +50,9 @@ export const FIREBASE_AUTH_CONFIX = {
 
     routing,
 
-    AngularFireModule.initializeApp(FIREBASE_CONFIG, FIREBASE_AUTH_CONFIX)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG, FIREBASE_AUTH_CONFIX),
+
+    AlertModule
   ],
   providers: [
     AuthService,
