@@ -1,21 +1,21 @@
 <div *ngIf="isLoading">Loading...</div>
-<div *ngIf="!isLoading && !isLoggedIn()">Access denied</div>
 
-<div *ngIf="isLoggedIn() && !isLoading">
+<div *ngIf="!isLoading">
   <ul>
     <li *ngFor="let item of items | async">
       <a (click)="onClickItem(item)">
         <span>{{item.title}}</span>
         <span>{{item.sum}}</span>
       </a>
+      <a (click)="deleteItem(item.$key)">Delete</a>
       <!--<input type="text" #updateTitle [value]="item.title" />-->
       <!--<input type="text" #updateSum [value]="item.sum" />-->
       <!--<button (click)="updateItem(item.$key, updateTitle.value, updateSum.value)">Update</button>-->
       <!--<button (click)="deleteItem(item.$key)">Delete</button>-->
     </li>
   </ul>
-  <!--<input type="text" #newitemTitle [disabled]="isLoading" />-->
-  <!--<input type="text" #newitemSum [disabled]="isLoading" />-->
-  <!--<button (click)="addItem(newitemTitle.value, newitemSum.value)" [disabled]="isLoading">Add</button>-->
+  <input type="text" #newitemTitle [disabled]="isLoading">
+  <input type="text" #newitemSum [disabled]="isLoading">
+  <button (click)="addItem(newitemTitle.value, newitemSum.value)" [disabled]="isLoading">Add</button>
   <!--<button (click)="deleteEverything()" [disabled]="isLoading">Delete All</button>-->
 </div>

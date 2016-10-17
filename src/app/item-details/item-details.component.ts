@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
-import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-item-details',
@@ -15,7 +14,6 @@ export class ItemDetailsComponent implements OnInit{
   item: any;
 
   constructor(private angularFire: AngularFire,
-              private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -31,11 +29,6 @@ export class ItemDetailsComponent implements OnInit{
       });
     });
   }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
 
   updateItem(key: string, title: string, sum: number) {
     this.item$.update({ title, sum });

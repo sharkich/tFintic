@@ -1,9 +1,13 @@
 <div *ngIf="isLoading">Loading...</div>
-<div *ngIf="!isLoading && !isLoggedIn()">Access denied</div>
 
-<div *ngIf="isLoggedIn() && !isLoading">
+<div *ngIf="!isLoading">
   (
   <span>{{item.title}}</span>
   <span>{{item.sum}}</span>
   )
+  <hr>
+  <input type="text" #updateTitle [value]="item.title">
+  <input type="text" #updateSum [value]="item.sum">
+  <button (click)="updateItem(item.$key, updateTitle.value, updateSum.value)">Update</button>
+  <button (click)="deleteItem(item.$key)">Delete</button>
 </div>

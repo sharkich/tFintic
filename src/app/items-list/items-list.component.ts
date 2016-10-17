@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-items-list',
@@ -14,7 +13,6 @@ export class ItemsListComponent implements OnInit{
   items: FirebaseListObservable<any[]>;
 
   constructor(private angularFire: AngularFire,
-              private authService: AuthService,
               private router: Router) {
   }
 
@@ -26,19 +24,13 @@ export class ItemsListComponent implements OnInit{
     });
   }
 
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
   addItem(title: string, sum: number) {
     this.items.push({ title, sum });
-  }
-  updateItem(key: string, title: string, sum: number) {
-    this.items.update(key, { title, sum });
   }
   deleteItem(key: string) {
     this.items.remove(key);
   }
+
   deleteEverything() {
     this.items.remove();
   }
