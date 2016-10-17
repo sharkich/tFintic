@@ -1,13 +1,16 @@
-import { ModuleWithProviders }  from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {ModuleWithProviders}  from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { AuthGuard } from './shared/auth-guard.service';
+import {AuthGuard} from './shared/auth-guard.service';
 
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ItemsListComponent } from './items-list/items-list.component';
-import { ItemDetailsComponent } from './item-details/item-details.component';
+import {LoginComponent} from './login/login.component';
+import {HomeComponent} from './home/home.component';
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+
+import {GroupsListComponent} from './groups-list/groups-list.component';
+
+import {ItemsListComponent} from './items-list/items-list.component';
+import {ItemDetailsComponent} from './item-details/item-details.component';
 
 const appRoutes: Routes = [
   {
@@ -18,6 +21,13 @@ const appRoutes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+
+  {
+    path: 'groups',
+    component: GroupsListComponent,
+    canActivate: [AuthGuard],
+  },
+
   {
     path: 'items',
     component: ItemsListComponent,
@@ -28,6 +38,7 @@ const appRoutes: Routes = [
     component: ItemDetailsComponent,
     canActivate: [AuthGuard],
   },
+
   {
     path: '**',
     component: PageNotFoundComponent

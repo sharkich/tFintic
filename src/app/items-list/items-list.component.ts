@@ -13,8 +13,7 @@ export class ItemsListComponent implements OnInit{
   items: FirebaseListObservable<any[]>;
 
   constructor(private angularFire: AngularFire,
-              private router: Router) {
-  }
+              private router: Router) {}
 
   ngOnInit() {
     this.items = this.angularFire.database.list('/items');

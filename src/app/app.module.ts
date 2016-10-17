@@ -19,6 +19,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { LoginComponent } from './login/login.component';
+import { GroupsListComponent } from './groups-list/groups-list.component';
 
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyAtcV7fnR7l9uyT3w4bPxn3TjW31ffGdk8',
@@ -41,7 +42,8 @@ export const FIREBASE_AUTH_CONFIX = {
     HeaderComponent,
     ItemsListComponent,
     ItemDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    GroupsListComponent
   ],
   imports: [
     BrowserModule,
