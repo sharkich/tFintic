@@ -9,7 +9,8 @@ import {AuthService} from '../shared/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private angularFire: AngularFire, private authService: AuthService) {
+  constructor(private angularFire: AngularFire, // for template
+              private authService: AuthService) {
   }
 
   isLoggedIn(): boolean {

@@ -28,6 +28,19 @@
       [disabled]="isLoading">
   </div>
 
+  <div class="form-group">
+    <label for="groupOwnerKey">OwnerKey</label>
+    <input
+      type="text"
+      class="form-control"
+      id="groupOwnerKey"
+      placeholder="OwnerKey"
+      required
+      [(ngModel)]="item.ownerKey"
+      [ngModelOptions]="{standalone: true}"
+      [disabled]="true">
+  </div>
+
   <a type="submit" class="btn btn-default" routerLink="/groups">Cancel</a>
   <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
   <div class="clearfix"></div>

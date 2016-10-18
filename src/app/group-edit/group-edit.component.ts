@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
-
+import {AuthService} from '../shared/auth.service';
 import {Group} from '../shared/group';
 
 @Component({
@@ -20,7 +20,8 @@ export class GroupEditComponent implements OnInit {
 
   constructor(private angularFire: AngularFire,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -31,7 +32,8 @@ export class GroupEditComponent implements OnInit {
         this.item = {
           $key: '',
           title: '',
-          sum: 0
+          sum: 0,
+          ownerKey: this.authService.getOwnerKey()
         };
         this.isLoading = false;
         return;
@@ -54,12 +56,16 @@ export class GroupEditComponent implements OnInit {
       console.log('push', this.item);
       this.items$.push({
         title: this.item.title,
-        sum: this.item.sum});
+        sum: this.item.sum,
+        ownerKey: this.authService.getOwnerKey()
+      });
     } else {
       console.log('update', this.item);
       this.item$.update({
         title: this.item.title,
-        sum: this.item.sum});
+        sum: this.item.sum,
+        ownerKey: this.authService.getOwnerKey()
+      });
     }
     this.router.navigate(['/groups']);
   }
