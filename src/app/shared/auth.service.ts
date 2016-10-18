@@ -6,6 +6,7 @@ import { AngularFire, FirebaseAuthState } from 'angularfire2';
 export class AuthService {
 
   auth: FirebaseAuthState;
+  ownerKey: string;
 
   constructor(public angularFire: AngularFire) {
     this.angularFire.auth.subscribe((auth) => {
@@ -27,6 +28,18 @@ export class AuthService {
 
   get user(): FirebaseAuthState {
     return this.auth;
+  }
+
+  setOwnerKey(ownerKey) {
+    this.ownerKey = ownerKey;
+    localStorage.setItem('tFintic-ownerKey', ownerKey);
+  }
+
+  getOwnerKey(): string|undefined {
+    if (this.ownerKey) {
+      return this.ownerKey;
+    }
+    return localStorage.getItem('tFintic-ownerKey');
   }
 
 }

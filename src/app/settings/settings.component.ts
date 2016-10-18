@@ -13,13 +13,19 @@ export class SettingsComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.angularFire.auth.subscribe((auth) => {
-      this.ownerKey = auth.uid;
-    });
+    if (this.authService.getOwnerKey()) {
+      this.ownerKey = this.authService.getOwnerKey();
+    } else {
+      this.authService.angularFire.auth.subscribe((auth) => {
+        this.ownerKey = auth.uid;
+      });
+    }
+
   }
 
   save() {
     console.log('save', this.ownerKey);
+    this.authService.setOwnerKey(this.ownerKey);
   }
 
 }
