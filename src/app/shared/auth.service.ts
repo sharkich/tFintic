@@ -7,7 +7,7 @@ export class AuthService {
 
   auth: FirebaseAuthState;
 
-  constructor(private angularFire: AngularFire) {
+  constructor(public angularFire: AngularFire) {
     this.angularFire.auth.subscribe((auth) => {
       this.auth = auth;
     });
@@ -25,7 +25,7 @@ export class AuthService {
     return this.angularFire.auth.logout();
   }
 
-  get user() {
+  get user(): FirebaseAuthState {
     return this.auth;
   }
 

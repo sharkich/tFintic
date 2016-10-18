@@ -21,6 +21,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { LoginComponent } from './login/login.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { GroupEditComponent } from './group-edit/group-edit.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyAtcV7fnR7l9uyT3w4bPxn3TjW31ffGdk8',
@@ -45,7 +46,8 @@ export const FIREBASE_AUTH_CONFIX = {
     ItemDetailsComponent,
     LoginComponent,
     GroupsListComponent,
-    GroupEditComponent
+    GroupEditComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

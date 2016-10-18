@@ -1,0 +1,24 @@
+<h1>Settings</h1>
+
+<form (submit)="save()">
+
+  <div class="form-group">
+    <label for="ownerKey">UID</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="owner ID"
+      required
+      id="ownerKey"
+      [(ngModel)]="ownerKey"
+      [ngModelOptions]="{standalone: true}"
+      [disabled]="!authService.user">
+  </div>
+
+  <a type="submit" class="btn btn-default" routerLink="/">Cancel</a>
+  <button type="submit" class="btn btn-primary pull-right" [disabled]="!authService.user">Save</button>
+  <div class="clearfix"></div>
+
+</form>
+<h3>User info:</h3>
+<pre>{{authService.user | json}}</pre>

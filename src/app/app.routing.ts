@@ -4,6 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {AuthGuard} from './shared/auth-guard.service';
 
 import {LoginComponent} from './login/login.component';
+import {SettingsComponent} from './settings/settings.component';
 import {HomeComponent} from './home/home.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
 
   {

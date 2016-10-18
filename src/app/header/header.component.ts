@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { AngularFire } from 'angularfire2';
-import { AuthService } from '../shared/auth.service';
+import {Component} from '@angular/core';
+import {AngularFire} from 'angularfire2';
+import {AuthService} from '../shared/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class HeaderComponent {
 
-  constructor(private angularFire: AngularFire, private authService: AuthService) {}
+  constructor(private angularFire: AngularFire, private authService: AuthService) {
+  }
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
