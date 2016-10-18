@@ -35,11 +35,11 @@ export class AuthService {
     localStorage.setItem('tFintic-ownerKey', ownerKey);
   }
 
-  getOwnerKey(): string|undefined {
+  getOwnerKey(): string {
     if (this.ownerKey) {
       return this.ownerKey;
     }
-    return localStorage.getItem('tFintic-ownerKey');
+    return localStorage.getItem('tFintic-ownerKey') || '';
   }
 
 }
