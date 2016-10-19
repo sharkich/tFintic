@@ -12,6 +12,7 @@ export class GroupsListComponent implements OnInit {
 
   isLoading: boolean = true;
   groups$: FirebaseListObservable<Group[]>;
+  sum: number;
 
   constructor(private angularFire: AngularFire, private authService: AuthService) {
   }
@@ -25,6 +26,9 @@ export class GroupsListComponent implements OnInit {
     });
     this.groups$.subscribe((groups: Group[]) => {
       console.log('on', groups);
+      this.sum = groups.reduce((sum, group) => {
+        return sum + group.sum;
+      }, 0);
       this.isLoading = false;
     });
   }
