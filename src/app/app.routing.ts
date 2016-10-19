@@ -12,6 +12,7 @@ import {GroupsListComponent} from './groups-list/groups-list.component';
 import {GroupEditComponent} from './group-edit/group-edit.component';
 
 import {LogsListComponent} from './logs-list/logs-list.component';
+import {LogEditComponent} from './log-edit/log-edit.component';
 
 import {ItemsListComponent} from './items-list/items-list.component';
 import {ItemDetailsComponent} from './item-details/item-details.component';
@@ -44,6 +45,11 @@ const appRoutes: Routes = [
   {
     path: 'logs',
     component: LogsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'logs/:id',
+    component: LogEditComponent,
     canActivate: [AuthGuard],
   },
 

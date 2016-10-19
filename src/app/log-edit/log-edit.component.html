@@ -1,4 +1,4 @@
-<h1>Group {{isNew() ? 'New' : 'Edit'}}</h1>
+<h1>Log {{isNew() ? 'New' : 'Edit'}}</h1>
 
 <form (submit)="save()">
 
@@ -10,7 +10,7 @@
       placeholder="title"
       required
       id="groupTitle"
-      [(ngModel)]="group.title"
+      [(ngModel)]="log.title"
       [ngModelOptions]="{standalone: true}"
       [disabled]="isLoading">
   </div>
@@ -23,9 +23,34 @@
       id="groupSum"
       placeholder="sum"
       required
-      [(ngModel)]="group.sum"
+      [(ngModel)]="log.sum"
       [ngModelOptions]="{standalone: true}"
       [disabled]="isLoading">
+  </div>
+
+  <div class="form-group">
+    <label for="groupKey">Group Key</label>
+    <input
+      type="text"
+      class="form-control"
+      id="groupKey"
+      placeholder="Group Key"
+      required
+      [(ngModel)]="log.groupKey"
+      [ngModelOptions]="{standalone: true}"
+      [disabled]="isLoading">
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input
+      type="text"
+      class="form-control"
+      id="date"
+      placeholder="Date"
+      required
+      [(ngModel)]="log.date"
+      [ngModelOptions]="{standalone: true}">
   </div>
 
   <div class="form-group">
@@ -36,12 +61,12 @@
       id="groupOwnerKey"
       placeholder="OwnerKey"
       required
-      [(ngModel)]="group.ownerKey"
+      [(ngModel)]="log.ownerKey"
       [ngModelOptions]="{standalone: true}"
       [disabled]="true">
   </div>
 
-  <a type="submit" class="btn btn-default" routerLink="/groups">Cancel</a>
+  <a type="submit" class="btn btn-default" routerLink="/logs">Cancel</a>
   <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
   <div class="clearfix"></div>
 

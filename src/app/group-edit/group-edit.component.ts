@@ -13,23 +13,22 @@ export class GroupEditComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  item$: FirebaseObjectObservable<Group>;
-  items$: FirebaseListObservable<Group[]>;
+  group$: FirebaseObjectObservable<Group>;
+  groups$: FirebaseListObservable<Group[]>;
 
-  item: Group;
+  group: Group;
 
   constructor(private angularFire: AngularFire,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService) {
-  }
+              private authService: AuthService) {}
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
       if (id === 'new') {
-        this.items$ = this.angularFire.database.list('/groups');
-        this.item = {
+        this.groups$ = this.angularFire.database.list('/groups');
+        this.group = {
           $key: '',
           title: '',
           sum: 0,
@@ -38,32 +37,32 @@ export class GroupEditComponent implements OnInit {
         this.isLoading = false;
         return;
       }
-      this.item$ = this.angularFire.database.object(`/groups/${id}`);
-      this.item$.subscribe((item: Group) => {
+      this.group$ = this.angularFire.database.object(`/groups/${id}`);
+      this.group$.subscribe((item: Group) => {
         console.log('on', item);
-        this.item = item;
+        this.group = item;
         this.isLoading = false;
       });
     });
   }
 
   isNew(): boolean {
-    return !this.item.$key;
+    return !this.group.$key;
   }
 
   save() {
     if (this.isNew()) {
-      console.log('push', this.item);
-      this.items$.push({
-        title: this.item.title,
-        sum: this.item.sum,
+      console.log('push', this.group);
+      this.groups$.push({
+        title: this.group.title,
+        sum: this.group.sum,
         ownerKey: this.authService.getOwnerKey()
       });
     } else {
-      console.log('update', this.item);
-      this.item$.update({
-        title: this.item.title,
-        sum: this.item.sum,
+      console.log('update', this.group);
+      this.group$.update({
+        title: this.group.title,
+        sum: this.group.sum,
         ownerKey: this.authService.getOwnerKey()
       });
     }
