@@ -26,7 +26,7 @@ export class GroupsListComponent implements OnInit {
     });
     this.groups$.subscribe((groups: Group[]) => {
       console.log('on', groups);
-      this.sum = groups.reduce((sum, group) => {
+      this.sum = groups.reduce((sum, group: Group) => {
         return sum + group.sum;
       }, 0);
       this.isLoading = false;

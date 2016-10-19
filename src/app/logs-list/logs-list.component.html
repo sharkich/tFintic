@@ -1,0 +1,22 @@
+<h1>Logs List</h1>
+
+<div *ngIf="isLoading">Loading...</div>
+
+<div class="list-group" *ngIf="!isLoading">
+  <a
+    *ngFor="let log of logs$ | async"
+    class="list-group-item"
+    routerLink="/logs/{{log.$key}}">
+    <span class="badge">{{log.sum}}</span>
+    {{log.title}}
+  </a>
+  <a class="list-group-item disabled">
+    <span class="badge">{{sum}}</span>
+    Sum
+  </a>
+</div>
+
+<p>
+  <a class="btn btn-primary pull-right" routerLink="/logs/new">Create new</a>
+</p>
+<div class="clearfix"></div>

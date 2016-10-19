@@ -22,6 +22,8 @@ import { LoginComponent } from './login/login.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { GroupEditComponent } from './group-edit/group-edit.component';
 import { SettingsComponent } from './settings/settings.component';
+import { LogsListComponent } from './logs-list/logs-list.component';
+import { LogEditComponent } from './log-edit/log-edit.component';
 
 export const FIREBASE_CONFIG = {
   apiKey: 'AIzaSyAtcV7fnR7l9uyT3w4bPxn3TjW31ffGdk8',
@@ -47,7 +49,9 @@ export const FIREBASE_AUTH_CONFIX = {
     LoginComponent,
     GroupsListComponent,
     GroupEditComponent,
-    SettingsComponent
+    SettingsComponent,
+    LogsListComponent,
+    LogEditComponent
   ],
   imports: [
     BrowserModule,
