@@ -3,6 +3,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../shared/auth.service';
 import {Log} from '../shared/log';
+import {Group} from '../shared/group';
 
 @Component({
   selector: 'app-log-edit',
@@ -12,6 +13,8 @@ import {Log} from '../shared/log';
 export class LogEditComponent implements OnInit {
 
   isLoading: boolean = true;
+
+  groups$: FirebaseListObservable<Group[]>;
 
   log$: FirebaseObjectObservable<Log>;
   logs$: FirebaseListObservable<Log[]>;
@@ -24,8 +27,10 @@ export class LogEditComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
+
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
+
       if (id === 'new') {
         this.logs$ = this.angularFire.database.list('/logs');
         this.log = {
@@ -39,12 +44,21 @@ export class LogEditComponent implements OnInit {
         this.isLoading = false;
         return;
       }
+
       this.log$ = this.angularFire.database.object(`/logs/${id}`);
       this.log$.subscribe((item: Log) => {
         console.log('on', item);
         this.log = item;
         this.isLoading = false;
       });
+
+    });
+
+    this.groups$ = this.angularFire.database.list('/groups', {
+      query: {
+        orderByChild: 'ownerKey',
+        equalTo: this.authService.getOwnerKey()
+      }
     });
   }
 
