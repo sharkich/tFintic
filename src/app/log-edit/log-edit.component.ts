@@ -37,7 +37,7 @@ export class LogEditComponent implements OnInit {
           $key: '',
           title: '',
           sum: 0,
-          date: new Date().toISOString(),
+          date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
           groupKey: '',
           ownerKey: this.authService.getOwnerKey()
         };
