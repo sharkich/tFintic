@@ -5,7 +5,7 @@
 <div class="list-group" *ngIf="!isLoading">
   <a
     *ngFor="let group of groups$ | async"
-    class="list-group-item"
+    [ngClass]="['list-group-item', group.highlighting ? 'list-group-item-' + group.highlighting : '']"
     routerLink="/groups/{{group.$key}}">
     <span class="badge">{{group.sum}}</span>
     {{group.title}}

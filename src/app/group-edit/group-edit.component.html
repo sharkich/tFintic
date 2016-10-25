@@ -1,6 +1,6 @@
 <h1>Group {{isNew() ? 'New' : 'Edit'}}</h1>
 
-<div [ngClass]="['container', group.highlighting]">
+<div [ngClass]="['container', group.highlighting ? 'bg-' + group.highlighting : '']">
   <form (submit)="save()">
 
     <div class="form-group">
@@ -38,11 +38,11 @@
         [ngModelOptions]="{standalone: true}"
       >
         <option value="">Default</option>
-        <option value="bg-primary">Default</option>
-        <option value="bg-success">Success</option>
-        <option value="bg-info">Info</option>
-        <option value="bg-warning">Warning</option>
-        <option value="bg-danger">Danger</option>
+        <option value="primary">Default</option>
+        <option value="success">Success</option>
+        <option value="info">Info</option>
+        <option value="warning">Warning</option>
+        <option value="danger">Danger</option>
       </select>
     </div>
 
