@@ -7,5 +7,20 @@
 
   <hr>
 
-  &copy; Artem Koziar 2016
+  <div class="row">
+    <div class="col-xs-6">
+      &copy; Artem Koziar 2016
+    </div>
+    <div class="col-xs-6">
+      <p class="pull-right login">
+        <small>
+          <button (click)="login()" *ngIf="!isLoggedIn()" class="btn btn-sm btn-primary">Login</button>
+          <button (click)="logout()" *ngIf="isLoggedIn()" class="btn btn-sm">Logout</button>
+        </small>
+      </p>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+
 </div>

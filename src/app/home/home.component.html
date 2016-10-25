@@ -3,11 +3,20 @@
 </p>
 
 <nav>
-  <ul>
-    <li><a routerLink="/groups">Groups</a></li>
-    <li><a routerLink="/logs">Logs</a></li>
-    <li><a routerLink="/settings">Settings</a></li>
-    <li><a routerLink="/items">Items</a></li>
-  </ul>
-  <div class="c"></div>
+
+  <div class="list-group">
+    <a class="list-group-item" routerLink="/logs">
+      <i class="glyphicon glyphicon-time"></i>
+      Logs
+    </a>
+    <a class="list-group-item" routerLink="/groups">
+      <i class="glyphicon glyphicon-book"></i>
+      Groups
+    </a>
+    <a class="list-group-item" routerLink="/settings">
+      <i class="glyphicon glyphicon-cog"></i>
+      Settings
+    </a>
+  </div>
+
 </nav>
