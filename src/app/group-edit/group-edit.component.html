@@ -1,4 +1,7 @@
-<h1>Group {{isNew() ? 'New' : 'Edit'}}</h1>
+<h1>
+  <a routerLink="/groups"><i class="glyphicon glyphicon-arrow-left"></i></a>
+  Group {{isNew() ? 'New' : 'Edit'}}
+</h1>
 
 <div [ngClass]="['container', group.highlighting ? 'bg-' + group.highlighting : '']">
   <form (submit)="save()">

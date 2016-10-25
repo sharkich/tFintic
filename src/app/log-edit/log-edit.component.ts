@@ -68,6 +68,7 @@ export class LogEditComponent implements OnInit {
   }
 
   save() {
+    console.log('save', this.log);
     if (this.isNew()) {
       console.log('push', this.log);
       this.logs$.push({
