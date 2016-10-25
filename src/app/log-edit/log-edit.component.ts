@@ -19,7 +19,14 @@ export class LogEditComponent implements OnInit {
   log$: FirebaseObjectObservable<Log>;
   logs$: FirebaseListObservable<Log[]>;
 
-  log: Log;
+  log: Log = {
+    $key: '',
+    title: '',
+    sum: 0,
+    date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
+    groupKey: '',
+    ownerKey: this.authService.getOwnerKey()
+  };
 
   constructor(private angularFire: AngularFire,
               private route: ActivatedRoute,
@@ -33,14 +40,6 @@ export class LogEditComponent implements OnInit {
 
       if (id === 'new') {
         this.logs$ = this.angularFire.database.list('/logs');
-        this.log = {
-          $key: '',
-          title: '',
-          sum: 0,
-          date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
-          groupKey: '',
-          ownerKey: this.authService.getOwnerKey()
-        };
         this.isLoading = false;
         return;
       }

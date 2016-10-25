@@ -16,7 +16,12 @@ export class GroupEditComponent implements OnInit {
   group$: FirebaseObjectObservable<Group>;
   groups$: FirebaseListObservable<Group[]>;
 
-  group: Group;
+  group: Group = {
+    $key: '',
+    title: '',
+    sum: 0,
+    ownerKey: this.authService.getOwnerKey()
+  };
 
   constructor(private angularFire: AngularFire,
               private route: ActivatedRoute,
@@ -28,12 +33,6 @@ export class GroupEditComponent implements OnInit {
       let id = params['id'];
       if (id === 'new') {
         this.groups$ = this.angularFire.database.list('/groups');
-        this.group = {
-          $key: '',
-          title: '',
-          sum: 0,
-          ownerKey: this.authService.getOwnerKey()
-        };
         this.isLoading = false;
         return;
       }
