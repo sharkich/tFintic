@@ -20,6 +20,7 @@ export class GroupEditComponent implements OnInit {
     $key: '',
     title: '',
     sum: 0,
+    highlighting: '',
     ownerKey: this.authService.getOwnerKey()
   };
 
@@ -55,6 +56,7 @@ export class GroupEditComponent implements OnInit {
       this.groups$.push({
         title: this.group.title,
         sum: this.group.sum,
+        highlighting: this.group.highlighting,
         ownerKey: this.authService.getOwnerKey()
       });
     } else {
@@ -62,6 +64,7 @@ export class GroupEditComponent implements OnInit {
       this.group$.update({
         title: this.group.title,
         sum: this.group.sum,
+        highlighting: this.group.highlighting,
         ownerKey: this.authService.getOwnerKey()
       });
     }

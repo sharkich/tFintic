@@ -1,48 +1,67 @@
 <h1>Group {{isNew() ? 'New' : 'Edit'}}</h1>
 
-<form (submit)="save()">
+<div [ngClass]="['container', group.highlighting]">
+  <form (submit)="save()">
 
-  <div class="form-group">
-    <label for="groupTitle">Title</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="title"
-      required
-      id="groupTitle"
-      [(ngModel)]="group.title"
-      [ngModelOptions]="{standalone: true}"
-      [disabled]="isLoading">
-  </div>
+    <div class="form-group">
+      <label for="groupTitle">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="title"
+        required
+        id="groupTitle"
+        [(ngModel)]="group.title"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="isLoading">
+    </div>
 
-  <div class="form-group">
-    <label for="groupSum">Sum</label>
-    <input
-      type="number"
-      class="form-control"
-      id="groupSum"
-      placeholder="sum"
-      required
-      [(ngModel)]="group.sum"
-      [ngModelOptions]="{standalone: true}"
-      [disabled]="isLoading">
-  </div>
+    <div class="form-group">
+      <label for="groupSum">Sum</label>
+      <input
+        type="number"
+        class="form-control"
+        id="groupSum"
+        placeholder="sum"
+        required
+        [(ngModel)]="group.sum"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="isLoading">
+    </div>
 
-  <div class="form-group">
-    <label for="groupOwnerKey">OwnerKey</label>
-    <input
-      type="text"
-      class="form-control"
-      id="groupOwnerKey"
-      placeholder="OwnerKey"
-      required
-      [(ngModel)]="group.ownerKey"
-      [ngModelOptions]="{standalone: true}"
-      [disabled]="true">
-  </div>
+    <div class="form-group">
+      <label for="groupColor">Color</label>
+      <select
+        class="form-control"
+        id="groupColor"
+        [(ngModel)]="group.highlighting"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <option value="">Default</option>
+        <option value="bg-primary">Default</option>
+        <option value="bg-success">Success</option>
+        <option value="bg-info">Info</option>
+        <option value="bg-warning">Warning</option>
+        <option value="bg-danger">Danger</option>
+      </select>
+    </div>
 
-  <a type="submit" class="btn btn-default" routerLink="/groups">Cancel</a>
-  <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
-  <div class="clearfix"></div>
+    <div class="form-group">
+      <label for="groupOwnerKey">OwnerKey</label>
+      <input
+        type="text"
+        class="form-control"
+        id="groupOwnerKey"
+        placeholder="OwnerKey"
+        required
+        [(ngModel)]="group.ownerKey"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="true">
+    </div>
 
-</form>
+    <a type="submit" class="btn btn-default" routerLink="/groups">Cancel</a>
+    <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
+    <div class="clearfix"></div>
+    <br>
+  </form>
+</div>
