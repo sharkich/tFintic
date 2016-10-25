@@ -4,5 +4,7 @@ export interface Log {
   sum: number;
   date: string;
   groupKey: string;
+  highlighting1: string;
+  highlighting2: string;
   ownerKey: string;
 }

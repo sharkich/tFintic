@@ -1,71 +1,113 @@
 <h1>Log {{isNew() ? 'New' : 'Edit'}}</h1>
 
-<form (submit)="save()">
+<p>some <span class="italic">text</span> here</p>
 
-  <div class="form-group">
-    <label for="groupTitle">Title</label>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="title"
-      required
-      id="groupTitle"
-      [(ngModel)]="log.title"
+<div [ngClass]="['container', log.highlighting1 ? 'list-group-item-' + log.highlighting1 : '', log.highlighting2 ? log.highlighting2 : '']">
+
+  <form (submit)="save()">
+
+    <div class="form-group">
+      <label for="groupTitle">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="title"
+        required
+        id="groupTitle"
+        [(ngModel)]="log.title"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="isLoading">
+    </div>
+
+    <div class="form-group">
+      <label for="groupSum">Sum</label>
+      <input
+        type="number"
+        class="form-control"
+        id="groupSum"
+        placeholder="sum"
+        required
+        [(ngModel)]="log.sum"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="isLoading">
+    </div>
+
+    <select
+      [ngModel]="log.groupKey"
+      (ngModelChange)="changeGroup($event)"
       [ngModelOptions]="{standalone: true}"
-      [disabled]="isLoading">
-  </div>
-
-  <div class="form-group">
-    <label for="groupSum">Sum</label>
-    <input
-      type="number"
       class="form-control"
-      id="groupSum"
-      placeholder="sum"
-      required
-      [(ngModel)]="log.sum"
-      [ngModelOptions]="{standalone: true}"
-      [disabled]="isLoading">
-  </div>
+      placeholder="Group"
+      [disabled]="isLoading"
+      required>
+      <option value="" readonly>- Group -</option>
+      <option *ngFor="let group of groups$ | async" [ngValue]="group.$key">{{ group.title }}</option>
+    </select>
 
-  <select
-    [(ngModel)]="log.groupKey"
-    [ngModelOptions]="{standalone: true}"
-    class="form-control"
-    placeholder="Group"
-    [disabled]="isLoading"
-    required>
-    <option value="" readonly>- Group -</option>
-    <option *ngFor="let group of groups$ | async" [ngValue]="group.$key">{{ group.title }}</option>
-  </select>
+    <div class="form-group">
+      <label for="date">Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="date"
+        placeholder="Date"
+        required
+        [(ngModel)]="log.date"
+        [ngModelOptions]="{standalone: true}">
+    </div>
 
-  <div class="form-group">
-    <label for="date">Date</label>
-    <input
-      type="date"
-      class="form-control"
-      id="date"
-      placeholder="Date"
-      required
-      [(ngModel)]="log.date"
-      [ngModelOptions]="{standalone: true}">
-  </div>
+    <div class="form-group">
+      <label for="groupColor1">Color 1</label>
+      <select
+        class="form-control"
+        id="groupColor1"
+        [(ngModel)]="log.highlighting1"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <option value="">Default</option>
+        <option value="primary">Primary</option>
+        <option value="success">Success</option>
+        <option value="info">Info</option>
+        <option value="warning">Warning</option>
+        <option value="danger">Danger</option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="groupOwnerKey">OwnerKey</label>
-    <input
-      type="text"
-      class="form-control"
-      id="groupOwnerKey"
-      placeholder="OwnerKey"
-      required
-      [(ngModel)]="log.ownerKey"
-      [ngModelOptions]="{standalone: true}"
-      [disabled]="true">
-  </div>
+    <div class="form-group">
+      <label for="groupColor2">Color 2</label>
+      <select
+        class="form-control"
+        id="groupColor2"
+        [(ngModel)]="log.highlighting2"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <option value="">Default</option>
+        <option value="text-bold">text-bold</option>
+        <option value="text-italic">text-italic</option>
+        <option value="text-star1">text-star1</option>
+        <option value="text-star2">text-star2</option>
+        <option value="text-star3">text-star3</option>
+      </select>
+    </div>
 
-  <a type="submit" class="btn btn-default" routerLink="/logs">Cancel</a>
-  <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
-  <div class="clearfix"></div>
+    <div class="form-group">
+      <label for="groupOwnerKey">OwnerKey</label>
+      <input
+        type="text"
+        class="form-control"
+        id="groupOwnerKey"
+        placeholder="OwnerKey"
+        required
+        [(ngModel)]="log.ownerKey"
+        [ngModelOptions]="{standalone: true}"
+        [disabled]="true">
+    </div>
 
-</form>
+    <a type="submit" class="btn btn-default" routerLink="/logs">Cancel</a>
+    <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
+    <div class="clearfix"></div>
+    <br>
+
+  </form>
+
+</div>

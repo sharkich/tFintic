@@ -25,6 +25,8 @@ export class LogEditComponent implements OnInit {
     sum: 0,
     date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
     groupKey: '',
+    highlighting1: '',
+    highlighting2: '',
     ownerKey: this.authService.getOwnerKey()
   };
 
@@ -73,6 +75,8 @@ export class LogEditComponent implements OnInit {
         sum: this.log.sum,
         date: this.log.date,
         groupKey: this.log.groupKey,
+        highlighting1: this.log.highlighting1,
+        highlighting2: this.log.highlighting2,
         ownerKey: this.authService.getOwnerKey()
       });
     } else {
@@ -82,10 +86,23 @@ export class LogEditComponent implements OnInit {
         sum: this.log.sum,
         date: this.log.date,
         groupKey: this.log.groupKey,
+        highlighting1: this.log.highlighting1,
+        highlighting2: this.log.highlighting2,
         ownerKey: this.authService.getOwnerKey()
       });
     }
     this.router.navigate(['/logs']);
+  }
+
+  changeGroup(groupKey: string) {
+    this.log.groupKey = groupKey;
+
+    this.groups$.subscribe((groups: Group[]) => {
+      let group: Group = groups.filter(gr => gr.$key === groupKey)[0];
+      if (group) {
+        this.log.highlighting1 = group.highlighting;
+      }
+    });
   }
 
 }

@@ -11,6 +11,7 @@ import {Log} from '../shared/log';
 export class LogsListComponent implements OnInit {
 
   isLoading: boolean = true;
+
   logs$: FirebaseListObservable<Log[]>;
   sum: number;
 
@@ -24,9 +25,9 @@ export class LogsListComponent implements OnInit {
         equalTo: this.authService.getOwnerKey()
       }
     });
-    this.logs$.subscribe((groups: Log[]) => {
-      console.log('on', groups);
-      this.sum = groups.reduce((sum, log: Log) => {
+    this.logs$.subscribe((logs: Log[]) => {
+      console.log('on', logs);
+      this.sum = logs.reduce((sum, log: Log) => {
         return sum + log.sum;
       }, 0);
       this.isLoading = false;
