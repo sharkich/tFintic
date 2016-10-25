@@ -14,9 +14,6 @@ import {GroupEditComponent} from './group-edit/group-edit.component';
 import {LogsListComponent} from './logs-list/logs-list.component';
 import {LogEditComponent} from './log-edit/log-edit.component';
 
-import {ItemsListComponent} from './items-list/items-list.component';
-import {ItemDetailsComponent} from './item-details/item-details.component';
-
 const appRoutes: Routes = [
   {
     path: '',
@@ -50,17 +47,6 @@ const appRoutes: Routes = [
   {
     path: 'logs/:id',
     component: LogEditComponent,
-    canActivate: [AuthGuard],
-  },
-
-  {
-    path: 'items',
-    component: ItemsListComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'items/:id',
-    component: ItemDetailsComponent,
     canActivate: [AuthGuard],
   },
 

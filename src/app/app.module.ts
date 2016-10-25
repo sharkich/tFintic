@@ -16,8 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 
 import { routing, appRoutingProviders } from './app.routing';
-import { ItemsListComponent } from './items-list/items-list.component';
-import { ItemDetailsComponent } from './item-details/item-details.component';
 import { LoginComponent } from './login/login.component';
 import { GroupsListComponent } from './groups-list/groups-list.component';
 import { GroupEditComponent } from './group-edit/group-edit.component';
@@ -44,8 +42,6 @@ export const FIREBASE_AUTH_CONFIX = {
     PageNotFoundComponent,
     HomeComponent,
     HeaderComponent,
-    ItemsListComponent,
-    ItemDetailsComponent,
     LoginComponent,
     GroupsListComponent,
     GroupEditComponent,
