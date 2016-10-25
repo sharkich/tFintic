@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import {MomentModule} from 'angular2-moment';
+
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 
 import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
@@ -58,7 +60,8 @@ export const FIREBASE_AUTH_CONFIX = {
 
     AngularFireModule.initializeApp(FIREBASE_CONFIG, FIREBASE_AUTH_CONFIX),
 
-    AlertModule
+    AlertModule,
+    MomentModule
   ],
   providers: [
     AuthService,
