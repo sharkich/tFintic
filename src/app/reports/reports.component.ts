@@ -4,6 +4,8 @@ import {AuthService} from '../shared/auth.service';
 import {Group} from '../shared/group';
 import {Log} from '../shared/log';
 
+import {GroupStatistic} from '../shared/reports';
+
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -18,7 +20,7 @@ export class ReportsComponent implements OnInit {
   groups$: FirebaseListObservable<Group[]>;
   logs$: FirebaseListObservable<Log[]>;
 
-  sum: number;
+  groupsStatistics = {};
 
   constructor(private angularFire: AngularFire,
               private authService: AuthService) { }
@@ -32,10 +34,14 @@ export class ReportsComponent implements OnInit {
     });
     this.groups$.subscribe((groups: Group[]) => {
       console.log('groups$', groups);
-      this.sum = groups.reduce((sum, group: Group) => {
-        return sum + group.sum;
-      }, 0);
-      console.log('this.sum', this.sum);
+      groups.forEach((group: Group) => {
+        let groupStatistic: GroupStatistic = {
+          group,
+          logsSum: 0,
+          logs: []
+        };
+        this.groupsStatistics[group.$key] = groupStatistic;
+      });
       this.isLoading = false;
     });
 
@@ -54,9 +60,13 @@ export class ReportsComponent implements OnInit {
     this.logs$
       .subscribe((logs: Log[]) => {
         console.log('logs$', logs);
-        this.sum = logs.reduce((sum, log: Log) => {
-          return sum + log.sum;
-        }, 0);
+
+        logs.forEach((log: Log) => {
+          let groupsStatistic: GroupStatistic = this.groupsStatistics[log.groupKey];
+          groupsStatistic.logsSum += log.sum;
+          groupsStatistic.logs.push(log);
+        });
+
         this.isLoading = false;
       });
   }
