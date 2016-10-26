@@ -6,8 +6,8 @@ import { AngularFire, FirebaseAuthState } from 'angularfire2';
 export class AuthService {
 
   auth: FirebaseAuthState;
-  ownerKey: string;
-  currentMonth: string;
+  ownerKey: string = '';
+  currentMonth: string = '';
 
   constructor(public angularFire: AngularFire) {
     this.angularFire.auth.subscribe((auth) => {
@@ -31,7 +31,7 @@ export class AuthService {
     return this.auth;
   }
 
-  setOwnerKey(ownerKey) {
+  setOwnerKey(ownerKey: string) {
     this.ownerKey = ownerKey;
     localStorage.setItem('tFintic-ownerKey', ownerKey);
   }
@@ -43,13 +43,16 @@ export class AuthService {
     return localStorage.getItem('tFintic-ownerKey') || '';
   }
 
-  setCurrentMonth(currentMonth) {
+  setCurrentMonth(currentMonth: string) {
     this.currentMonth = currentMonth;
     localStorage.setItem('tFintic-currentMonth', currentMonth);
   }
 
   getCurrentMonth(): string {
-    return localStorage.getItem('tFintic-currentMonth') || `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}`;
+    if (this.currentMonth) {
+      return this.currentMonth;
+    }
+    return localStorage.getItem('tFintic-currentMonth');
   }
 
 }
