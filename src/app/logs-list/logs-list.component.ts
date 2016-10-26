@@ -15,21 +15,24 @@ export class LogsListComponent implements OnInit {
   logs$: FirebaseListObservable<Log[]>;
   sum: number;
 
+  currentMonth: string = '';
+
   constructor(private angularFire: AngularFire,
               private authService: AuthService) {
   }
 
   ngOnInit() {
     let options;
-    if (this.authService.currentMonth) {
+    this.currentMonth = this.authService.getCurrentMonth();
+    if (this.currentMonth) {
       options = {
         query: {
           orderByChild: 'mainKey',
-          equalTo: `${this.authService.getOwnerKey()}#${this.authService.currentMonth}`
+          equalTo: `${this.authService.getOwnerKey()}#${this.currentMonth}`
         }
       };
     }
-    console.log(`${this.authService.getOwnerKey()}#${this.authService.currentMonth}`);
+    console.log(`${this.authService.getOwnerKey()}#${this.currentMonth}`);
     this.logs$ = this.angularFire.database.list('/logs', options);
     this.logs$
       .subscribe((logs: Log[]) => {

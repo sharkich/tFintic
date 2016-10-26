@@ -8,11 +8,13 @@ import {AuthService} from '../shared/auth.service';
 })
 export class SettingsComponent implements OnInit {
 
-  ownerKey: string;
+  ownerKey: string = '';
+  currentMonth: string = '';
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.currentMonth = this.authService.getCurrentMonth();
     if (this.authService.getOwnerKey()) {
       this.ownerKey = this.authService.getOwnerKey();
     } else {
@@ -26,6 +28,7 @@ export class SettingsComponent implements OnInit {
   save() {
     console.log('save', this.ownerKey);
     this.authService.setOwnerKey(this.ownerKey);
+    this.authService.setCurrentMonth(this.currentMonth);
   }
 
 }

@@ -7,6 +7,7 @@ export class AuthService {
 
   auth: FirebaseAuthState;
   ownerKey: string;
+  currentMonth: string;
 
   constructor(public angularFire: AngularFire) {
     this.angularFire.auth.subscribe((auth) => {
@@ -42,7 +43,12 @@ export class AuthService {
     return localStorage.getItem('tFintic-ownerKey') || '';
   }
 
-  get currentMonth(): string {
+  setCurrentMonth(currentMonth) {
+    this.currentMonth = currentMonth;
+    localStorage.setItem('tFintic-currentMonth', currentMonth);
+  }
+
+  getCurrentMonth(): string {
     return localStorage.getItem('tFintic-currentMonth') || `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}`;
   }
 
