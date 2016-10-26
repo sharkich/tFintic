@@ -1,3 +1,10 @@
-<p>
-  reports works!
-</p>
+<h1>Reports</h1>
+
+<div *ngIf="isLoading">Loading...</div>
+
+<div class="list-group" *ngIf="!isLoading">
+  <p>
+    reports works!
+  </p>
+  <pre>{{ groups$ | async | json}}</pre>
+</div>

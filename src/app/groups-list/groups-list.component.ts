@@ -14,7 +14,8 @@ export class GroupsListComponent implements OnInit {
   groups$: FirebaseListObservable<Group[]>;
   sum: number;
 
-  constructor(private angularFire: AngularFire, private authService: AuthService) {
+  constructor(private angularFire: AngularFire,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
