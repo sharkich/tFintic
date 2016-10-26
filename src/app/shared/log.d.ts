@@ -7,4 +7,5 @@ export interface Log {
   highlighting1: string;
   highlighting2: string;
   ownerKey: string;
+  mainKey: string;
 }

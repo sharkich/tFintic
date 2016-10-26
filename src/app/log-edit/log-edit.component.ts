@@ -27,7 +27,8 @@ export class LogEditComponent implements OnInit {
     groupKey: '',
     highlighting1: '',
     highlighting2: '',
-    ownerKey: this.authService.getOwnerKey()
+    ownerKey: this.authService.getOwnerKey(),
+    mainKey: `${this.authService.getOwnerKey()}#`
   };
 
   constructor(private angularFire: AngularFire,
@@ -78,7 +79,8 @@ export class LogEditComponent implements OnInit {
         groupKey: this.log.groupKey,
         highlighting1: this.log.highlighting1,
         highlighting2: this.log.highlighting2,
-        ownerKey: this.authService.getOwnerKey()
+        ownerKey: this.authService.getOwnerKey(),
+        mainKey: `${this.authService.getOwnerKey()}#${this.log.date.slice(0, -3)}`
       });
     } else {
       console.log('update', this.log);
@@ -89,7 +91,8 @@ export class LogEditComponent implements OnInit {
         groupKey: this.log.groupKey,
         highlighting1: this.log.highlighting1,
         highlighting2: this.log.highlighting2,
-        ownerKey: this.authService.getOwnerKey()
+        ownerKey: this.authService.getOwnerKey(),
+        mainKey: `${this.authService.getOwnerKey()}#${this.log.date.slice(0, -3)}`
       });
     }
     this.router.navigate(['/logs']);

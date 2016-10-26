@@ -42,4 +42,8 @@ export class AuthService {
     return localStorage.getItem('tFintic-ownerKey') || '';
   }
 
+  get currentMonth(): string {
+    return localStorage.getItem('tFintic-currentMonth') || `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}`;
+  }
+
 }

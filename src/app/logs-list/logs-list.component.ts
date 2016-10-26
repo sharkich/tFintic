@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {AuthService} from '../shared/auth.service';
 import {Log} from '../shared/log';
@@ -16,22 +16,29 @@ export class LogsListComponent implements OnInit {
   sum: number;
 
   constructor(private angularFire: AngularFire,
-              private authService: AuthService) {}
+              private authService: AuthService) {
+  }
 
   ngOnInit() {
-    this.logs$ = this.angularFire.database.list('/logs', {
-      query: {
-        orderByChild: 'ownerKey',
-        equalTo: this.authService.getOwnerKey()
-      }
-    });
-    this.logs$.subscribe((logs: Log[]) => {
-      console.log('on', logs);
-      this.sum = logs.reduce((sum, log: Log) => {
-        return sum + log.sum;
-      }, 0);
-      this.isLoading = false;
-    });
+    let options;
+    if (this.authService.currentMonth) {
+      options = {
+        query: {
+          orderByChild: 'mainKey',
+          equalTo: `${this.authService.getOwnerKey()}#${this.authService.currentMonth}`
+        }
+      };
+    }
+    console.log(`${this.authService.getOwnerKey()}#${this.authService.currentMonth}`);
+    this.logs$ = this.angularFire.database.list('/logs', options);
+    this.logs$
+      .subscribe((logs: Log[]) => {
+        console.log('subscribe', logs);
+        this.sum = logs.reduce((sum, log: Log) => {
+          return sum + log.sum;
+        }, 0);
+        this.isLoading = false;
+      });
   }
 
 }
