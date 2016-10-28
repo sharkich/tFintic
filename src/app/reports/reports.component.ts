@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {AuthService} from '../shared/auth.service';
+import {GroupsService} from '../shared/groups.service';
+import {LogsService} from '../shared/logs.service';
 import {Group} from '../shared/group';
 import {Log} from '../shared/log';
 
@@ -15,60 +15,57 @@ export class ReportsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  currentMonth: string = '';
-
-  groups$: FirebaseListObservable<Group[]>;
-  logs$: FirebaseListObservable<Log[]>;
-
   groupsStatistics = {};
+  groups: Group[];
+  logs: Log[];
 
-  constructor(private angularFire: AngularFire,
-              private authService: AuthService) { }
+  constructor(private logsService: LogsService,
+              private groupsService: GroupsService) {}
 
   ngOnInit() {
-    this.groups$ = this.angularFire.database.list('/groups', {
-      query: {
-        orderByChild: 'ownerKey',
-        equalTo: this.authService.getOwnerKey()
-      }
-    });
-    this.groups$.subscribe((groups: Group[]) => {
-      console.log('groups$', groups);
-      groups.forEach((group: Group) => {
-        let groupStatistic: GroupStatistic = {
-          group,
-          logsSum: 0,
-          logs: []
-        };
-        this.groupsStatistics[group.$key] = groupStatistic;
-      });
-      this.isLoading = false;
-    });
+    this.groupsService.getGroups()
+      .subscribe((groups: Group[]) => {
+        this.groups = groups;
 
-    let options;
-    this.currentMonth = this.authService.getCurrentMonth();
-    if (this.currentMonth) {
-      options = {
-        query: {
-          orderByChild: 'mainKey',
-          equalTo: `${this.authService.getOwnerKey()}#${this.currentMonth}`
-        }
-      };
-    }
-    console.log(`${this.authService.getOwnerKey()}#${this.currentMonth}`);
-    this.logs$ = this.angularFire.database.list('/logs', options);
-    this.logs$
-      .subscribe((logs: Log[]) => {
-        console.log('logs$', logs);
-
-        logs.forEach((log: Log) => {
-          let groupsStatistic: GroupStatistic = this.groupsStatistics[log.groupKey];
-          groupsStatistic.logsSum += log.sum;
-          groupsStatistic.logs.push(log);
+        groups.forEach((group: Group) => {
+          let groupsStatistics: GroupStatistic = {
+            group,
+            logsSum: 0,
+            percentage: 0,
+            highlighting: '',
+            logs: []
+          };
+          this.groupsStatistics[group.$key] = groupsStatistics;
         });
 
-        this.isLoading = false;
+        this.logsService.getLogs()
+          .subscribe((logs: Log[]) => {
+            this.logs = logs;
+
+            logs.forEach((log: Log) => {
+              let groupsStatistic: GroupStatistic = this.groupsStatistics[log.groupKey];
+              groupsStatistic.logsSum += log.sum;
+              groupsStatistic.percentage = Math.round(groupsStatistic.logsSum * 100 / groupsStatistic.group.sum);
+
+              if (groupsStatistic.percentage > 95) {
+                groupsStatistic.highlighting = 'danger';
+              } else if (groupsStatistic.percentage > 70) {
+                groupsStatistic.highlighting = 'warning';
+              } else if (groupsStatistic.percentage > 50) {
+                groupsStatistic.highlighting = 'info';
+              } else {
+                groupsStatistic.highlighting = 'success';
+              }
+
+              groupsStatistic.logs.push(log);
+            });
+
+            this.isLoading = false;
+          });
+
       });
+
+
   }
 
 }

@@ -6,7 +6,8 @@
   <a
     *ngFor="let log of logs"
     [ngClass]="['list-group-item', log.highlighting1 ? 'list-group-item-' + log.highlighting1 : '', log.highlighting2 ? log.highlighting2 : '']"
-    routerLink="/logs/{{log.$key}}">
+    routerLink="/logs/{{log.$key}}"
+  >
     <span class="badge">{{log.sum}}</span>
     <span class="grey" title="{{log.date}}">{{log.date | amDateFormat:'MM.DD'}}</span>
     {{log.title}}

@@ -5,7 +5,8 @@
 
 <p>some <span class="italic">text</span> here</p>
 
-<div [ngClass]="['container', log.highlighting1 ? 'list-group-item-' + log.highlighting1 : '', log.highlighting2 ? log.highlighting2 : '']">
+<div
+  [ngClass]="['container', log.highlighting1 ? 'list-group-item-' + log.highlighting1 : '', log.highlighting2 ? log.highlighting2 : '']">
 
   <form (submit)="save()">
 
@@ -19,7 +20,8 @@
         id="groupTitle"
         [(ngModel)]="log.title"
         [ngModelOptions]="{standalone: true}"
-        [disabled]="isLoading">
+        [disabled]="isLoading"
+      >
     </div>
 
     <div class="form-group">
@@ -32,7 +34,8 @@
         required
         [(ngModel)]="log.sum"
         [ngModelOptions]="{standalone: true}"
-        [disabled]="isLoading">
+        [disabled]="isLoading"
+      >
     </div>
 
     <select
@@ -42,7 +45,8 @@
       class="form-control"
       placeholder="Group"
       [disabled]="isLoading"
-      required>
+      required
+    >
       <option value="" readonly>- Group -</option>
       <option *ngFor="let group of groups" [ngValue]="group.$key">{{ group.title }}</option>
     </select>
@@ -56,7 +60,8 @@
         placeholder="Date"
         required
         [(ngModel)]="log.date"
-        [ngModelOptions]="{standalone: true}">
+        [ngModelOptions]="{standalone: true}"
+      >
     </div>
 
     <div class="form-group">
@@ -103,7 +108,8 @@
         required
         [(ngModel)]="log.ownerKey"
         [ngModelOptions]="{standalone: true}"
-        [disabled]="true">
+        [disabled]="true"
+      >
     </div>
 
     <a type="submit" class="btn btn-default" routerLink="/logs">Cancel</a>

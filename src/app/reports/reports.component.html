@@ -3,8 +3,27 @@
 <div *ngIf="isLoading">Loading...</div>
 
 <div class="list-group" *ngIf="!isLoading">
-  <p>
-    reports works!
-  </p>
-  <pre>{{ groupsStatistics | json}}</pre>
+  <div class="list-group">
+
+    <div
+      *ngFor="let group of groups"
+      [ngClass]="['list-group-item', group.highlighting ? 'list-group-item-' + group.highlighting : '']"
+    >
+      <h4 class="list-group-item-heading">{{group.title}}</h4>
+
+      <div class="list-group-item-text">
+        <div class="progress">
+          <div
+            role="progressbar"
+            [ngStyle]="{'width': groupsStatistics[group.$key].percentage + '%'}"
+            [ngClass]="['progress-bar', 'progress-bar-striped', group.highlighting ? 'progress-bar-' + group.highlighting : '']"
+          >
+            <span class="sr-only">40% Complete (success)</span>
+          </div>
+        </div>
+        <!--{{groupsStatistics[group.$key].logsSum}} of {{group.sum}} <strong>({{groupsStatistics[group.$key].percentage}}%)</strong>-->
+      </div>
+
+    </div>
+  </div>
 </div>

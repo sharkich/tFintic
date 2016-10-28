@@ -6,7 +6,8 @@
   <a
     *ngFor="let group of groups"
     [ngClass]="['list-group-item', group.highlighting ? 'list-group-item-' + group.highlighting : '']"
-    routerLink="/groups/{{group.$key}}">
+    routerLink="/groups/{{group.$key}}"
+  >
     <span class="badge">{{group.sum}}</span>
     {{group.title}}
   </a>
