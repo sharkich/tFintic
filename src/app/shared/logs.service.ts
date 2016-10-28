@@ -77,17 +77,24 @@ export class LogsService {
   }
 
   getEmptyLog(): Log {
-    return {
+    let log = {
       $key: '',
       title: '',
       sum: 0,
-      date: '',
+      date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
       groupKey: '',
       highlighting1: '',
       highlighting2: '',
-      ownerKey: '',
+      ownerKey: this.authService.getOwnerKey(),
       mainKey: ''
     };
+    log = this.updateMainKey(log);
+    return log;
+  }
+
+  updateMainKey(log: Log) {
+    log.mainKey = `${this.authService.getOwnerKey()}#${log.date.slice(0, -3)}`;
+    return log;
   }
 
   isNew(log: Log): boolean {
@@ -96,6 +103,7 @@ export class LogsService {
 
   saveLog(log: Log) {
     let _log = Object.assign({}, log);
+    _log = this.updateMainKey(_log);
     let key = _log['$key'];
     delete _log['$key'];
     delete _log['$exists'];

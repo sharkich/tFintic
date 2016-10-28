@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
-import {AuthService} from '../shared/auth.service';
+import {LogsService} from '../shared/logs.service';
+import {GroupsService} from '../shared/groups.service';
 import {Log} from '../shared/log';
 import {Group} from '../shared/group';
 
@@ -14,99 +14,63 @@ export class LogEditComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  groups$: FirebaseListObservable<Group[]>;
+  log: Log = this.logsService.getEmptyLog();
+  groups: Group[] = [];
 
-  log$: FirebaseObjectObservable<Log>;
-  logs$: FirebaseListObservable<Log[]>;
-
-  log: Log = {
-    $key: '',
-    title: '',
-    sum: 0,
-    date: `${new Date().getFullYear()}-${('0' + (new Date().getMonth() + 1)).slice(-2)}-${('0' + new Date().getDate()).slice(-2)}`,
-    groupKey: '',
-    highlighting1: '',
-    highlighting2: '',
-    ownerKey: this.authService.getOwnerKey(),
-    mainKey: `${this.authService.getOwnerKey()}#`
-  };
-
-  constructor(private angularFire: AngularFire,
+  constructor(private logsService: LogsService,
+              private groupsService: GroupsService,
               private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService) { }
+              private router: Router) { }
 
   ngOnInit() {
 
     this.route.params.forEach((params: Params) => {
-      let id = params['id'];
+      let key = params['id'];
 
-      if (id === 'new') {
-        this.logs$ = this.angularFire.database.list('/logs');
+      if (key === 'new') {
         this.isLoading = false;
         return;
       }
 
-      this.log$ = this.angularFire.database.object(`/logs/${id}`);
-      this.log$.subscribe((item: Log) => {
-        console.log('on', item);
-        this.log = item;
-        this.isLoading = false;
-      });
+      this.logsService.getLog(key)
+        .subscribe((log: Log) => {
+          this.log = log;
+          this.isLoading = false;
+        });
 
-    });
+      this.groupsService.getGroups()
+        .subscribe((groups: Group[]) => {
+          this.groups = groups;
+        });
 
-    this.groups$ = this.angularFire.database.list('/groups', {
-      query: {
-        orderByChild: 'ownerKey',
-        equalTo: this.authService.getOwnerKey()
-      }
     });
   }
 
   isNew(): boolean {
-    return !this.log.$key;
+    return this.logsService.isNew(this.log);
   }
 
   save() {
-    console.log('save', this.log);
-    if (this.isNew()) {
-      console.log('push', this.log);
-      this.logs$.push({
-        title: this.log.title,
-        sum: this.log.sum,
-        date: this.log.date,
-        groupKey: this.log.groupKey,
-        highlighting1: this.log.highlighting1,
-        highlighting2: this.log.highlighting2,
-        ownerKey: this.authService.getOwnerKey(),
-        mainKey: `${this.authService.getOwnerKey()}#${this.log.date.slice(0, -3)}`
-      });
-    } else {
-      console.log('update', this.log);
-      this.log$.update({
-        title: this.log.title,
-        sum: this.log.sum,
-        date: this.log.date,
-        groupKey: this.log.groupKey,
-        highlighting1: this.log.highlighting1,
-        highlighting2: this.log.highlighting2,
-        ownerKey: this.authService.getOwnerKey(),
-        mainKey: `${this.authService.getOwnerKey()}#${this.log.date.slice(0, -3)}`
-      });
-    }
+    this.logsService.saveLog(this.log);
     this.router.navigate(['/logs']);
+    return false;
   }
 
   changeGroup(groupKey: string) {
     this.log.groupKey = groupKey;
-
-    this.groups$.subscribe((groups: Group[]) => {
-      let group: Group = groups.filter(gr => gr.$key === groupKey)[0];
+    this.groupsService.getGroup(groupKey).subscribe((group: Group) => {
       if (group) {
         this.log.highlighting1 = group.highlighting;
+      } else {
+        this.log.highlighting1 = '';
       }
     });
+  }
+
+  remove() {
+    this.logsService.deleteLog(this.log);
+    this.router.navigate(['/logs']);
+    return false;
   }
 
 }

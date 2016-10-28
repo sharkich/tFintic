@@ -10,7 +10,9 @@ import {Group} from '../shared/group';
 export class GroupsListComponent implements OnInit {
 
   isLoading: boolean = true;
+
   groups: Group[] = [];
+
   sum: number;
 
   constructor(private groupsService: GroupsService) {

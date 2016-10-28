@@ -44,7 +44,7 @@
       [disabled]="isLoading"
       required>
       <option value="" readonly>- Group -</option>
-      <option *ngFor="let group of groups$ | async" [ngValue]="group.$key">{{ group.title }}</option>
+      <option *ngFor="let group of groups" [ngValue]="group.$key">{{ group.title }}</option>
     </select>
 
     <div class="form-group">
@@ -107,6 +107,7 @@
     </div>
 
     <a type="submit" class="btn btn-default" routerLink="/logs">Cancel</a>
+    <a type="submit" class="btn btn-danger" (click)="remove()">Delete</a>
     <button type="submit" class="btn btn-primary pull-right" [disabled]="isLoading">Save</button>
     <div class="clearfix"></div>
     <br>

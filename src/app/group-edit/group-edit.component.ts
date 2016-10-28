@@ -36,7 +36,7 @@ export class GroupEditComponent implements OnInit {
   }
 
   isNew(): boolean {
-    return !this.group.$key;
+    return this.groupsService.isNew(this.group);
   }
 
   save() {
