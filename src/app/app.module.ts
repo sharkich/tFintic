@@ -11,6 +11,7 @@ import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AuthService } from './shared/auth.service';
 import { GroupsService } from './shared/groups.service';
+import { LogsService } from './shared/logs.service';
 
 import { AuthGuard } from './shared/auth-guard.service';
 
@@ -70,6 +71,7 @@ export const FIREBASE_AUTH_CONFIX = {
   providers: [
     AuthService,
     GroupsService,
+    LogsService,
 
     AuthGuard,
 

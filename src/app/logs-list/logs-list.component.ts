@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {AuthService} from '../shared/auth.service';
+import {LogsService} from '../shared/logs.service';
 import {Log} from '../shared/log';
 
 @Component({
@@ -12,31 +11,16 @@ export class LogsListComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  logs$: FirebaseListObservable<Log[]>;
+  logs: Log[] = [];
   sum: number;
 
-  currentMonth: string = '';
-
-  constructor(private angularFire: AngularFire,
-              private authService: AuthService) {
+  constructor(private logsService: LogsService) {
   }
 
   ngOnInit() {
-    let options;
-    this.currentMonth = this.authService.getCurrentMonth();
-    if (this.currentMonth) {
-      options = {
-        query: {
-          orderByChild: 'mainKey',
-          equalTo: `${this.authService.getOwnerKey()}#${this.currentMonth}`
-        }
-      };
-    }
-    console.log(`${this.authService.getOwnerKey()}#${this.currentMonth}`);
-    this.logs$ = this.angularFire.database.list('/logs', options);
-    this.logs$
+    this.logsService.getLogs()
       .subscribe((logs: Log[]) => {
-        console.log('subscribe', logs);
+        this.logs = logs;
         this.sum = logs.reduce((sum, log: Log) => {
           return sum + log.sum;
         }, 0);
