@@ -29,7 +29,6 @@ export class GroupEditComponent implements OnInit {
       }
       this.groupsService.getGroup(key)
         .subscribe((group: Group) => {
-          console.log('on', group);
           this.group = group;
           this.isLoading = false;
         });
@@ -42,6 +41,12 @@ export class GroupEditComponent implements OnInit {
 
   save() {
     this.groupsService.saveGroup(this.group);
+    this.router.navigate(['/groups']);
+    return false;
+  }
+
+  remove() {
+    this.groupsService.deleteGroup(this.group);
     this.router.navigate(['/groups']);
     return false;
   }

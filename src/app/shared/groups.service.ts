@@ -88,4 +88,9 @@ export class GroupsService {
     }
   }
 
+  deleteGroup(group: Group) {
+    let group$ = this.angularFire.database.object(`/groups/${group.$key}`);
+    group$.remove();
+  }
+
 }
