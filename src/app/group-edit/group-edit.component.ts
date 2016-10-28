@@ -41,24 +41,9 @@ export class GroupEditComponent implements OnInit {
   }
 
   save() {
-    // if (this.isNew()) {
-    //   console.log('push', this.group);
-    //   this.groups$.push({
-    //     title: this.group.title,
-    //     sum: this.group.sum,
-    //     highlighting: this.group.highlighting,
-    //     ownerKey: this.authService.getOwnerKey()
-    //   });
-    // } else {
-    //   console.log('update', this.group);
-    //   this.group$.update({
-    //     title: this.group.title,
-    //     sum: this.group.sum,
-    //     highlighting: this.group.highlighting,
-    //     ownerKey: this.authService.getOwnerKey()
-    //   });
-    // }
+    this.groupsService.saveGroup(this.group);
     this.router.navigate(['/groups']);
+    return false;
   }
 
 }
