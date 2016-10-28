@@ -14,25 +14,18 @@ export class GroupsService {
               private authService: AuthService) {
 
     if (!this.authService.getOwnerKey()) {
-      throw new Error('Owner Key is not ready!!!! O_O');
+      throw new Error('Log In please! Owner Key is not ready!!!! O_O');
     }
+    this.groups$ = this.angularFire.database.list('/groups', {
+      query: {
+        orderByChild: 'ownerKey',
+        equalTo: this.authService.getOwnerKey()
+      }
+    });
   }
 
   getGroups(): Observable<Group[]> {
     return Observable.create((observer) => {
-      if (this.groups$) {
-        console.log('fast getGroups');
-        observer.next(this.groups);
-        observer.complete();
-        return;
-      }
-      console.log('slow getGroups');
-      this.groups$ = this.angularFire.database.list('/groups', {
-        query: {
-          orderByChild: 'ownerKey',
-          equalTo: this.authService.getOwnerKey()
-        }
-      });
       this.groups$.subscribe((groups: Group[]) => {
         console.log('on', groups);
         this.groups = groups;
@@ -44,23 +37,30 @@ export class GroupsService {
 
   getGroup(key: string): Observable<Group> {
     return Observable.create((observer) => {
-      if (this.groups$) {
-        let group = this.groups.find((_group: Group) => {
+      this.groups$.subscribe((groups: Group[]) => {
+        let group = groups.find((_group: Group) => {
           return _group.$key === key;
         });
-        console.log('fast getGroup');
         observer.next(group);
-        observer.complete();
-        return;
-      }
-      console.log('slow getGroup');
-      let group$ = this.angularFire.database.object(`/groups/${key}`);
-      group$.subscribe((group: Group) => {
-        console.log('on', group);
-        observer.next(group);
-        observer.complete();
+        if (group) {
+          observer.complete();
+        }
       });
     });
+  }
+
+  getEmptyGroup(): Group {
+    return {
+      $key: '',
+      title: '',
+      sum: 0,
+      highlighting: '',
+      ownerKey: this.authService.getOwnerKey()
+    };
+  }
+
+  isNew(group: Group): boolean {
+    return !!group.$key;
   }
 
 }

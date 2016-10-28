@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
-import {AuthService} from '../shared/auth.service';
+import {GroupsService} from '../shared/groups.service';
 import {Group} from '../shared/group';
 
 @Component({
@@ -13,36 +12,27 @@ export class GroupEditComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  group$: FirebaseObjectObservable<Group>;
-  groups$: FirebaseListObservable<Group[]>;
+  group: Group = this.groupsService.getEmptyGroup();
 
-  group: Group = {
-    $key: '',
-    title: '',
-    sum: 0,
-    highlighting: '',
-    ownerKey: this.authService.getOwnerKey()
-  };
-
-  constructor(private angularFire: AngularFire,
+  constructor(private groupsService: GroupsService,
               private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService) {}
+              private router: Router) {
+    console.log(this.group);
+  }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      let id = params['id'];
-      if (id === 'new') {
-        this.groups$ = this.angularFire.database.list('/groups');
+      let key = params['id'];
+      if (key === 'new') {
         this.isLoading = false;
         return;
       }
-      this.group$ = this.angularFire.database.object(`/groups/${id}`);
-      this.group$.subscribe((item: Group) => {
-        console.log('on', item);
-        this.group = item;
-        this.isLoading = false;
-      });
+      this.groupsService.getGroup(key)
+        .subscribe((group: Group) => {
+          console.log('on', group);
+          this.group = group;
+          this.isLoading = false;
+        });
     });
   }
 
@@ -51,23 +41,23 @@ export class GroupEditComponent implements OnInit {
   }
 
   save() {
-    if (this.isNew()) {
-      console.log('push', this.group);
-      this.groups$.push({
-        title: this.group.title,
-        sum: this.group.sum,
-        highlighting: this.group.highlighting,
-        ownerKey: this.authService.getOwnerKey()
-      });
-    } else {
-      console.log('update', this.group);
-      this.group$.update({
-        title: this.group.title,
-        sum: this.group.sum,
-        highlighting: this.group.highlighting,
-        ownerKey: this.authService.getOwnerKey()
-      });
-    }
+    // if (this.isNew()) {
+    //   console.log('push', this.group);
+    //   this.groups$.push({
+    //     title: this.group.title,
+    //     sum: this.group.sum,
+    //     highlighting: this.group.highlighting,
+    //     ownerKey: this.authService.getOwnerKey()
+    //   });
+    // } else {
+    //   console.log('update', this.group);
+    //   this.group$.update({
+    //     title: this.group.title,
+    //     sum: this.group.sum,
+    //     highlighting: this.group.highlighting,
+    //     ownerKey: this.authService.getOwnerKey()
+    //   });
+    // }
     this.router.navigate(['/groups']);
   }
 
