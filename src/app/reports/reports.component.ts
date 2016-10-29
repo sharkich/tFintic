@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../shared/auth.service';
 import {GroupsService} from '../shared/groups.service';
 import {LogsService} from '../shared/logs.service';
 import {Group} from '../shared/group';
@@ -19,10 +20,15 @@ export class ReportsComponent implements OnInit {
   groups: Group[];
   logs: Log[];
 
+  currentMonth: string = '';
+
   constructor(private logsService: LogsService,
-              private groupsService: GroupsService) {}
+              private groupsService: GroupsService,
+              private authService: AuthService) {}
 
   ngOnInit() {
+    this.currentMonth = this.authService.getCurrentMonth();
+
     this.groupsService.getGroups()
       .subscribe((groups: Group[]) => {
         this.groups = groups;

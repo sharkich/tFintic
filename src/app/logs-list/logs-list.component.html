@@ -10,6 +10,7 @@
   >
     <span class="badge">{{log.sum}}</span>
     <span class="grey" title="{{log.date}}">{{log.date | amDateFormat:'MM.DD'}}</span>
+    <strong>{{getGroupOfLog(log)?.title}}</strong><br>
     {{log.title}}
   </a>
   <a class="list-group-item disabled">

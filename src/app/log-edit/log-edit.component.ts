@@ -27,6 +27,11 @@ export class LogEditComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let key = params['id'];
 
+      this.groupsService.getGroups()
+        .subscribe((groups: Group[]) => {
+          this.groups = groups;
+        });
+
       if (key === 'new') {
         this.isLoading = false;
         return;
@@ -36,11 +41,6 @@ export class LogEditComponent implements OnInit {
         .subscribe((log: Log) => {
           this.log = log;
           this.isLoading = false;
-        });
-
-      this.groupsService.getGroups()
-        .subscribe((groups: Group[]) => {
-          this.groups = groups;
         });
 
     });
